@@ -7,4 +7,4 @@ services:
     image: testdevops:v1.0.0
     container_name: testdevops
     ports:
-      - "8030:8380"
+      - "8380:8380"
