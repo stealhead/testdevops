@@ -1,0 +1,10 @@
+version: "3.1"
+services:
+  testdevops:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: testdevops:v1.0.0
+    container_name: testdevops
+    ports:
+      - "8030:8080"
