@@ -33,7 +33,10 @@ pipeline {
         }
         stage('服务器运行镜像') {
             steps {
-                echo '服务器运行镜像 -- SUCCESS'
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'myserver', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''deploy.sh $harborAddr $harborRepo $JOB_NAME $version $container_port $host_port
+
+
+''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
