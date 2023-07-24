@@ -21,14 +21,15 @@ pipeline {
         stage('制作镜像') {
             steps {
                 sh '''mv ./target/*.jar ./docker/
-                        docker build -t ${JOB_NAME}:v1.1 ./docker/'''
+                        docker build -t ${JOB_NAME}:${version} ./docker/'''
             }
         }
         stage('自定义镜像推送到harbor') {
             steps {
                 sh '''docker login -u ${harborUser} -p ${harborPasswd} ${harborAddr}
-                    docker tag ${JOB_NAME}:v1.1 ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1
-                    docker push ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1'''
+                    docker tag ${JOB_NAME}:${version} ${harborAddr}/${harborRepo}/${JOB_NAME}:${version}
+                    docker image prune
+                    docker push ${harborAddr}/${harborRepo}/${JOB_NAME}:${version}'''
             }
         }
         stage('服务器运行镜像') {
