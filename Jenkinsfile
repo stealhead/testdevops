@@ -3,7 +3,6 @@ pipeline {
     agent any
     environment {
         harborUser = 'harbor100'
-        harborPasswd = 'Admin321'
         harborAddr = '207.148.19.166:80'
         harborRepo = 'repo'
     }
@@ -26,7 +25,7 @@ pipeline {
         }
         stage('自定义镜像推送到harbor') {
             steps {
-                sh '''docker login -u ${harborUser} -p ${harborPasswd} ${harborAddr}
+                sh '''cat /var/jenkins_home/password/${harborUser} | docker login -u ${harborUser} --password-stdin ${harborAddr}
                     docker tag ${JOB_NAME}:v1.1 ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1
                     docker push ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1'''
             }
