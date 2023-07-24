@@ -17,7 +17,8 @@ pipeline {
         }
         stage('制作镜像') {
             steps {
-                echo '制作镜像 -- SUCCESS'
+                sh '''mv ./target/*.jar ./docker/
+                        docker build -t ${JOB_NAME}:v1.1 ./docker/'''
             }
         }
         stage('自定义镜像推送到harbor') {
