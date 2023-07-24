@@ -2,9 +2,9 @@
 pipeline {
     agent any
     environment {
-        harborUser = 'harbor100',
-        harborPasswd = 'Admin321',
-        harborAddr = '207.148.19.166:80';
+        harborUser = 'harbor100'
+        harborPasswd = 'Admin321'
+        harborAddr = '207.148.19.166:80'
         harborRepo = 'repo'
     }
     stages {
