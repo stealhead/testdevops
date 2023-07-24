@@ -12,7 +12,7 @@ pipeline {
         }
         stage('构建项目') {
             steps {
-                echo '构建项目 -- SUCCESS'
+                sh '/var/jenkins_home/maven/bin/mvn clean package -DskipTests'
             }
         }
         stage('制作镜像') {
