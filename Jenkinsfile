@@ -2,7 +2,10 @@
 pipeline {
     agent any
     environment {
-        key = 'value'
+        harborUser = 'harbor100',
+        harborPasswd = 'Admin321',
+        harborAddr = '207.148.19.166:80';
+        harborRepo = 'repo'
     }
     stages {
         stage('拉取git仓库代码') {
@@ -23,7 +26,9 @@ pipeline {
         }
         stage('自定义镜像推送到harbor') {
             steps {
-                echo '自定义镜像推送到harbor -- SUCCESS'
+                sh '''docker login -u ${harborUser} -p ${harborPasswd} ${harborAddr}
+                    docker tag ${JOB_NAME}:v1.1 ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1
+                    docker push ${harborAddr}/${harborRepo}/${JOB_NAME}:v1.1'''
             }
         }
         stage('服务器运行镜像') {
