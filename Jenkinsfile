@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh '''docker login -u ${harborUser} -p ${harborPasswd} ${harborAddr}
                     docker tag ${JOB_NAME}:${version} ${harborAddr}/${harborRepo}/${JOB_NAME}:${version}
-                    docker image prune
+                    docker image prune -f
                     docker push ${harborAddr}/${harborRepo}/${JOB_NAME}:${version}'''
             }
         }
